@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  webapp:
+    build: ./app
+    ports:
+      - "5000:5000"
+    container_name: devops-portfolio-app
+    restart: always
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    container_name: prometheus
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    container_name: grafana
+

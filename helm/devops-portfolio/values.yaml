@@ -1,0 +1,13 @@
+replicaCount: 2
+
+image:
+  repository: devops-portfolio-app
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 5000
+
+customMessage: "Hello from Helm!"
