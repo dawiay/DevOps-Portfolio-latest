@@ -15,6 +15,32 @@ A comprehensive demonstration of modern DevOps practices, tools, and methodologi
 | **Visualization** | Grafana | Dashboards for application metrics |
 | **Packaging** | Helm | Helm Chart for scalable deployment |
 
+## 🏗️ Architecture
+
+```mermaid
+graph TD
+    User([User]) -->|HTTP/80| LB{Load Balancer}
+    LB -->|Route| Ingress[Ingress Controller]
+    Ingress -->|Service| AppService[K8s Service]
+    
+    subgraph Kubernetes Cluster
+        AppService --> Pod1[Flask Pod 1]
+        AppService --> Pod2[Flask Pod 2]
+        
+        Pod1 -->|Metrics| Prometheus[Prometheus]
+        Pod2 -->|Metrics| Prometheus
+    end
+    
+    Prometheus -->|Data| Grafana[Grafana Dashboard]
+    
+    subgraph CI/CD Pipeline
+        Code[GitHub Repo] -->|Push| Actions[GitHub Actions]
+        Actions -->|Build & Test| Docker[Docker Image]
+        Actions -->|Scan| Trivy[Trivy Security]
+        Docker -->|Push| Registry[Docker Hub]
+    end
+```
+
 ## 📂 Project Structure
 
 ```bash
