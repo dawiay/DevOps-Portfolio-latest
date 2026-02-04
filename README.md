@@ -13,6 +13,7 @@ A comprehensive demonstration of modern DevOps practices, tools, and methodologi
 | **CI/CD** | GitHub Actions | Automated Linting, Testing, and Building |
 | **Monitoring** | Prometheus | Metric Scraping and Aggregation |
 | **Visualization** | Grafana | Dashboards for application metrics |
+| **Logging** | Loki | Centralized logging and aggregation |
 | **Packaging** | Helm | Helm Chart for scalable deployment |
 
 ## 🏗️ Architecture
@@ -75,6 +76,7 @@ graph TD
 3.  **Access Services**
     - **Web App**: [http://localhost:5000](http://localhost:5000)
     - **Prometheus**: [http://localhost:9090](http://localhost:9090)
+    - **Loki**: [http://localhost:3100](http://localhost:3100)
     - **Grafana**: [http://localhost:3000](http://localhost:3000) (Login: `admin` / `admin`)
 
 ## 📊 Features
@@ -92,3 +94,6 @@ The application is instrumented with `prometheus_flask_exporter`. Real-time metr
 
 ### 4. Kubernetes & Helm
 Standard Kubernetes manifests are provided in `k8s/`, and a production-ready Helm chart is available in `helm/devops-portfolio`.
+
+### 5. Centralized Logging (Phase 4)
+Integrated **Grafana Loki** and **Promtail** to aggregate logs from all containers. Logs can be queried directly in Grafana using LogQL.

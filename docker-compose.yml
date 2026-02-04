@@ -8,16 +8,43 @@ services:
     restart: always
 
   prometheus:
-    image: prom/prometheus
-    ports:
-      - "9090:9090"
+    image: prom/prometheus:latest
     volumes:
       - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    container_name: prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - devops-network
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - devops-network
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./monitoring/promtail/promtail-config.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - devops-network
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:latest
     ports:
       - "3000:3000"
-    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - devops-network
+    depends_on:
+      - prometheus
+      - loki
 
+networks:
+  devops-network:
+    driver: bridge
