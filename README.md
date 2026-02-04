@@ -87,7 +87,16 @@ Every push to `main` triggers a GitHub Actions workflow that:
 - Builds the Docker image to ensure reproducibility.
 
 ### 2. Infrastructure as Code (Terraform)
-The `terraform/` directory contains configuration to manage the Docker resources using HCL (HashiCorp Configuration Language).
+The `terraform/` directory is refactored into **Modules** to support multi-environment deployments:
+- `modules/docker_stack`: Reusable code for the container stack.
+- `environments/dev`: Development configuration.
+- `environments/prod`: Production-ready configuration.
+
+### 3. Secrets Management (Phase 4)
+Demonstrates senior-level security patterns including:
+- **SOPS** encryption patterns.
+- **External Secrets Operator** (Kubernetes) integration guide.
+- GitHub Actions secret injection.
 
 ### 3. Observability
 The application is instrumented with `prometheus_flask_exporter`. Real-time metrics are scraped by Prometheus and visualized in Grafana.
